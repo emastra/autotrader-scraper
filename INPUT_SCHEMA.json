@@ -1,0 +1,144 @@
+{
+    "title": "Autotrader Scraper Input Schema",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "enablePredefinedFilters": {
+            "title": "Enable this section",
+            "type": "boolean",
+            "description": "(Required if 'startUrls' is not provided) Enable predefined filters",
+            "sectionCaption": "Search with predefined filters (Single search)",
+            "sectionDescription": "Set filters for search",
+            "default": false
+        },
+        "zipcode": {
+            "title": "Zipcode",
+            "type": "integer",
+            "description": "(Required if 'startUrls' is not provided) Location zipcode for search",
+            "prefill": 0,
+            "default": 0
+        },
+        "searchWithin": {
+            "title": "Search within",
+            "type": "integer",
+            "description": "Radius of the search with zipcode as center (in Miles)",
+            "prefill": 0,
+            "default": 0
+        },
+        "condition": {
+            "title": "Condition",
+            "type": "string",
+            "editor": "select",
+            "enum": [ "ANY", "NEW", "USED", "CERTIFIED" ],
+            "enumTitles": [ "Any", "New", "Used", "Certified" ],
+            "description": "Condition of the car for sale",
+            "default": "Any"
+        },
+        "minimumPrice": {
+            "title": "Minimum Price",
+            "type": "string",
+            "editor": "select",
+            "enum": [ "ANY", "1000", "2000", "3000", "4000", "5000", "6000", "7000", "8000", "9000", "10000", "11000", "12000", "13000", "14000", "15000", "16000", "17000", "18000", "19000", "20000", "22000", "24000", "26000",  "28000", "30000", "35000", "40000", "45000", "50000", "55000", "60000", "65000", "70000", "75000", "80000", "85000", "90000", "95000", "100000" ],
+            "enumTitles": [ "Any", "$1,000","$2,000","$3,000","$4,000","$5,000","$6,000","$7,000","$8,000","$9,000","$10,000","$11,000","$12,000","$13,000","$14,000","$15,000","$16,000","$17,000","$18,000","$19,000","$20,000","$22,000","$24,000","$26,000","$28,000","$30,000","$35,000","$40,000","$45,000","$50,000","$55,000","$60,000","$65,000","$70,000","$75,000","$80,000","$85,000","$90,000","$95,000","$100,000" ],
+            "description": "Minimum price filter",
+            "default": "Any"
+        },
+        "maximumPrice": {
+            "title": "Maximum Price",
+            "type": "string",
+            "editor": "select",
+            "enum": [ "ANY", "1000", "2000", "3000", "4000", "5000", "6000", "7000", "8000", "9000", "10000", "11000", "12000", "13000", "14000", "15000", "16000", "17000", "18000", "19000", "20000", "22000", "24000", "26000",  "28000", "30000", "35000", "40000", "45000", "50000", "55000", "60000", "65000", "70000", "75000", "80000", "85000", "90000", "95000", "100000" ],
+            "enumTitles": [ "Any", "$1,000","$2,000","$3,000","$4,000","$5,000","$6,000","$7,000","$8,000","$9,000","$10,000","$11,000","$12,000","$13,000","$14,000","$15,000","$16,000","$17,000","$18,000","$19,000","$20,000","$22,000","$24,000","$26,000","$28,000","$30,000","$35,000","$40,000","$45,000","$50,000","$55,000","$60,000","$65,000","$70,000","$75,000","$80,000","$85,000","$90,000","$95,000","$100,000" ],
+            "description": "Maximum price filter",
+            "default": "Any"
+        },
+        "style": {
+            "title": "Style",
+            "type": "string",
+            "editor": "select",
+            "enum": [ "ANY", "CONVERT", "SEDAN", "VANMV", "COUPE", "SUVCROSS", "WAGON", "HATCH", "TRUCKS" ],
+            "enumTitles": [ "Any", "Convertible", "Sedan", "Van/Minivan", "Coupe", "Suv/Crossover", "Wagon", "Hatchback", "Truck" ],
+            "description": "Style of the car",
+            "default": "Any"
+        },
+        "driveType": {
+            "title": "Drive type",
+            "type": "string",
+            "editor": "select",
+            "enum": [ "ANY", "AWD4WD", "FWD", "RWD" ],
+            "enumTitles": [ "Any", "AWD/4WD", "Front Wheel Drive", "Rear Wheel Drive" ],
+            "description": "Type of car drive",
+            "default": "Any"
+        },
+        "fromYear": {
+            "title": "From Year",
+            "type": "string",
+            "editor": "select",
+            "enum": [ "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021" ],
+            "description": "Year of the car",
+            "default": "1981"
+        },
+        "toYear": {
+            "title": "To Year",
+            "type": "string",
+            "editor": "select",
+            "enum": [ "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021" ],
+            "description": "Year of the car",
+            "default": "2021"
+        },
+        "make": {
+            "title": "Make",
+            "type": "string",
+            "editor": "select",
+            "enum": ["ANY", "ACURA","ALFA","AMC","ASTON","AUDI","BENTL","BMW","BUGATTI","BUICK","CAD","CHEV","CHRY","DAEW","DATSUN","DELOREAN","DODGE","EAGLE","FER","FIAT","FISK","FORD","FREIGHT","GENESIS","GEO","GMC","HONDA","AMGEN","HYUND","INFIN","ISU","JAG","JEEP","KARMA","KIA","LAM","ROV","LEXUS","LINC","LOTUS","MAS",
+                "MAYBACH","MAZDA","MCLAREN","MB","MERC","MINI","MIT","NISSAN","OLDS","PLYM","PONT","POR","RAM","RR","SAAB","SATURN","SCION","SMART","SRT","SUB","SUZUKI","TESLA","TOYOTA","VOLKS","VOLVO","YUGO" ],
+            "enumTitles": ["Any","Acura","Alfa Romeo","AMC","Aston Martin","Audi","Bentley","BMW","Bugatti","Buick","Cadillac","Chevrolet","Chrysler","Daewoo","Datsun","DeLorean","Dodge","Eagle","Ferrari","FIAT","Fisker","Ford","Freightliner","Genesis","Geo","GMC","Honda","HUMMER","Hyundai","INFINITI","Isuzu","Jaguar",
+                "Jeep","Karma","Kia","Lamborghini","Land Rover","Lexus","Lincoln","Lotus","Maserati","Maybach","MAZDA","McLaren","Mercedes-Benz","Mercury","MINI","Mitsubishi","Nissan","Oldsmobile","Plymouth","Pontiac","Porsche","RAM","Rolls-Royce","Saab","Saturn","Scion","smart","SRT","Subaru","Suzuki","Tesla","Toyota","Volkswagen","Volvo","Yugo"],
+            "description": "Car make",
+            "default": "Any"
+        },
+        "mileage": {
+            "title": "Mileage",
+            "type": "string",
+            "editor": "select",
+            "enum": [ "ANY", "15000", "30000", "45000", "60000", "75000", "100000", "150000", "200000", "200001" ],
+            "enumTitles": [ "Any", "Under 15,000", "Under 30,000", "Under 45,000", "Under 60,000", "Under 75,000", "Under 100,000", "Under 150,000", "Under 200,000", "Over 200,000"],
+            "description": "Miliage of the car",
+            "default": "Any"
+        },
+        "startUrls": {
+            "title": "Start Urls",
+            "type": "array",
+            "editor": "requestListSources",
+            "description": "(Optional if 'predefined filters' are provided) List of URLs to scrape. It must be a search url including querystring for filters. Check documentation for details and examples.",
+            "sectionCaption": "Search with any filter (multiple search possible)",
+            "sectionDescription": "Search is based on URL. You can insert multiple URLs. Filters must be in the query string, each URL query string can contain any allowed filter. Check Autotrader website and actor documentation for more details.",
+            "default": []
+        },
+        "maxItems": {
+            "title": "Max items",
+            "type": "integer",
+            "minimum": 0,
+            "description": "Limit of items to be scraped. Zero value means no limit.",
+            "prefill": 0,
+            "sectionCaption": "Max items",
+            "default": 0
+        },
+        "extendOutputFunction": {
+            "title": "Extend output function",
+            "type": "string",
+            "editor": "javascript",
+            "description": "A function which result will get merged with the default result. It must return an object.",
+            "sectionCaption": "Advanced options",
+            "default": ""
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Select proxies to be used by your crawler.",
+            "prefill": { "useApifyProxy": true },
+            "editor": "proxy",
+            "default": { "useApifyProxy": true }
+        }
+    }
+}
