@@ -3,7 +3,8 @@
 Autotrader Scraper is an [Apify actor](https://apify.com/actors) for searching and extracting data from [Autotrader](https://www.autotrader.com/) web site. It is build on top of [Apify SDK](https://sdk.apify.com/) and you can run it both on [Apify platform](https://my.apify.com) and locally.
 
 - [Input](#input)
-- [Input Example](#input-example)
+- [INPUT Example with predefined filters](#input-example-with-predefined-filters)
+- [INPUT Example with start urls](#input-example-with-start-urls)
 - [Output](#output)
 - [Extend output function](#extend-output-function)
 - [Open an issue](#open-an-issue)
@@ -29,9 +30,8 @@ Autotrader Scraper is an [Apify actor](https://apify.com/actors) for searching a
 | extendOutputFunction | string | (optional) Function that takes a JQuery handle ($) as argument and returns data that will be merged with the default output. More information in [Extend output function](#extend-output-function) |
 | proxyConfiguration | object | (optional) Proxy settings of the run. If you have access to Apify proxy, leave the default settings. If not, you can set `{ "useApifyProxy": false" }` to disable proxy usage or use your own proxy server(s) |
 
-### Input example
+### INPUT Example with predefined filters
 
-**INPUT Example with predefined filters:**\n
 Predefined filters are: zipcode, searchWithin, condition, minimumPrice, maximumPrice, style, driveType, fromYear, toYear, make and mileage.
 You can omit some, or set them to 'ANY'.
 
@@ -57,7 +57,8 @@ You can omit some, or set them to 'ANY'.
 }
 ```
 
-**INPUT Example with predefined filters:**\n
+### INPUT Example with start urls
+
 (Optional if 'predefined filters' are enabled) Search is based on URL query string. You can insert multiple URLs. Filters must be in the query string, each URL query string can contain any allowed filter from [Autotrader advanced search](https://www.autotrader.com/cars-for-sale/).
 
 Base url is: https://www.autotrader.com/cars-for-sale/searchresults.xhtml
