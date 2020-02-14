@@ -31,7 +31,9 @@ Autotrader Scraper is an [Apify actor](https://apify.com/actors) for searching a
 
 ### Input example
 
-*INPUT Example with predefined filters:*
+**INPUT Example with predefined filters:**
+Predefined filters are: zipcode, searchWithin, condition, minimumPrice, maximumPrice, style, driveType, fromYear, toYear, make and mileage.
+You can omit some, or set them to 'ANY'.
 
 ```
 {
@@ -55,7 +57,7 @@ Autotrader Scraper is an [Apify actor](https://apify.com/actors) for searching a
 }
 ```
 
-*INPUT Example with predefined filters:*
+**INPUT Example with predefined filters:**
 (Optional if 'predefined filters' are enabled) Search is based on URL query string. You can insert multiple URLs. Filters must be in the query string, each URL query string can contain any allowed filter from [Autotrader advanced search](https://www.autotrader.com/cars-for-sale/).
 
 Base url is: https://www.autotrader.com/cars-for-sale/searchresults.xhtml
@@ -67,7 +69,6 @@ https://www.autotrader.com/cars-for-sale/searchresults.xhtml?maxMileage=75000&se
 ### Output
 
 Output is stored in a dataset.
-Each item will contain the search term and all values keyed by the corresponding date.
 
 Example of one output item:
 ```
