@@ -6,7 +6,7 @@
         "enablePredefinedFilters": {
             "title": "Enable this section",
             "type": "boolean",
-            "description": "(Required if 'startUrls' is not provided) Enable predefined filters",
+            "description": "(Required if 'startUrls' is not provided) Enable predefined filter section",
             "sectionCaption": "Search with predefined filters (Single search)",
             "sectionDescription": "Set filters for search",
             "default": false
@@ -14,7 +14,7 @@
         "zipcode": {
             "title": "Zipcode",
             "type": "integer",
-            "description": "(Required if 'startUrls' is not provided) Location zipcode for search",
+            "description": "Location zipcode for search",
             "prefill": 0,
             "default": 0
         },
@@ -31,7 +31,7 @@
             "editor": "select",
             "enum": [ "ANY", "NEW", "USED", "CERTIFIED" ],
             "enumTitles": [ "Any", "New", "Used", "Certified" ],
-            "description": "Condition of the car for sale",
+            "description": "Condition of the car to search",
             "default": "Any"
         },
         "minimumPrice": {
@@ -58,7 +58,7 @@
             "editor": "select",
             "enum": [ "ANY", "CONVERT", "SEDAN", "VANMV", "COUPE", "SUVCROSS", "WAGON", "HATCH", "TRUCKS" ],
             "enumTitles": [ "Any", "Convertible", "Sedan", "Van/Minivan", "Coupe", "Suv/Crossover", "Wagon", "Hatchback", "Truck" ],
-            "description": "Style of the car",
+            "description": "Style of the car to search",
             "default": "Any"
         },
         "driveType": {
@@ -75,7 +75,7 @@
             "type": "string",
             "editor": "select",
             "enum": [ "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021" ],
-            "description": "Year of the car",
+            "description": "Minimum year of the car",
             "default": "1981"
         },
         "toYear": {
@@ -83,7 +83,7 @@
             "type": "string",
             "editor": "select",
             "enum": [ "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021" ],
-            "description": "Year of the car",
+            "description": "Maximum year of the car",
             "default": "2021"
         },
         "make": {
@@ -110,16 +110,16 @@
             "title": "Start Urls",
             "type": "array",
             "editor": "requestListSources",
-            "description": "(Optional if 'predefined filters' are provided) List of URLs to scrape. It must be a search url including querystring for filters. Check documentation for details and examples.",
+            "description": "(Optional if 'predefined filters' are enabled) List of search URLs to start the scraping. It must be a search url including querystring for filters. Check documentation for details and examples",
             "sectionCaption": "Search with any filter (multiple search possible)",
-            "sectionDescription": "Search is based on URL. You can insert multiple URLs. Filters must be in the query string, each URL query string can contain any allowed filter. Check Autotrader website and actor documentation for more details.",
+            "sectionDescription": "(Optional if 'predefined filters' are enabled) Search is based on URL query string. You can insert multiple URLs. Filters must be in the query string, each URL query string can contain any allowed filter. Check Autotrader advanced search and/or actor documentation for more details.",
             "default": []
         },
         "maxItems": {
             "title": "Max items",
             "type": "integer",
             "minimum": 0,
-            "description": "Limit of items to be scraped. Zero value means no limit.",
+            "description": "Limit of items to be scraped. Zero value means no limit",
             "prefill": 0,
             "sectionCaption": "Max items",
             "default": 0
