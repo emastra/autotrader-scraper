@@ -229,7 +229,7 @@ Apify.main(async () => {
 
                     const url = currentUrl;
                     const title = document.querySelector('h1').textContent;
-                    const price = document.querySelector('span.first-price').textContent;
+                    const price = Number(document.querySelector('span.first-price').textContent.replace(',', ''));
                     const media = document.querySelector('div.media-pane-wrapper-md');
                     const imgDivs = Array.from(media.querySelectorAll('div.text-center.carousel-cell.carousel-full-width')).slice(0, 4);
                     const [ imageURL1, imageURL2, imageURL3, imageURL4 ] = imgDivs.map((div) => {
@@ -238,7 +238,7 @@ Apify.main(async () => {
                         return null;
                     });
                     const ul = document.querySelector('ul[data-cmp="listColumns"]');
-                    const mileage = getElementsByText('MILEAGE', 'div', ul)[0].nextSibling.textContent;
+                    const mileage = Number(getElementsByText('MILEAGE', 'div', ul)[0].nextSibling.textContent.replace(',', ''));
                     const driveType = getElementsByText('DRIVE TYPE', 'div', ul)[0].nextSibling.textContent;
                     const engine = getElementsByText('ENGINE', 'div', ul)[0].nextSibling.textContent;
                     const transmission = getElementsByText('TRANSMISSION', 'div', ul)[0].nextSibling.textContent;
