@@ -10,6 +10,7 @@ Autotrader Scraper is an [Apify actor](https://apify.com/actors) for searching a
 - [Open an issue](#open-an-issue)
 
 ### Input
+'enablePredefinedFilters' must be true OR 'startUrls' must be provided.
 
 | Field | Type | Description |
 | ----- | ---- | ----------- |
