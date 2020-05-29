@@ -238,13 +238,14 @@ Apify.main(async () => {
                         return null;
                     });
                     const ul = document.querySelector('ul[data-cmp="listColumns"]');
+                    // debugger;
                     const mileage = Number(getElementsByText('MILEAGE', 'div', ul)[0].nextSibling.textContent.replace(',', ''));
                     const driveType = getElementsByText('DRIVE TYPE', 'div', ul)[0].nextSibling.textContent;
                     const engine = getElementsByText('ENGINE', 'div', ul)[0].nextSibling.textContent;
                     const transmission = getElementsByText('TRANSMISSION', 'div', ul)[0].nextSibling.textContent;
                     const fuelType = getElementsByText('FUEL TYPE', 'div', ul)[0].nextSibling.textContent;
-                    const mpg = getElementsByText('MPG', 'div', ul)[0]
-                        ? getElementsByText('MPG', 'div', ul)[0].nextSibling.textContent
+                    const mpg = getElementsByText('MPG*', 'div', ul)[0]
+                        ? getElementsByText('MPG*', 'div', ul)[0].nextSibling.textContent
                         : getElementsByText('RANGE', 'div', ul)[0].nextSibling.textContent + ' (RANGE)';
                     const exterior = getElementsByText('EXTERIOR', 'div', ul)[0].nextSibling.textContent;
                     const interior = getElementsByText('INTERIOR', 'div', ul)[0].nextSibling.textContent;
