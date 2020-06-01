@@ -9,7 +9,8 @@
             "description": "(Required if 'startUrls' is not provided) Enable predefined filter section",
             "sectionCaption": "Search with predefined filters (Single search)",
             "sectionDescription": "Set filters for search",
-            "default": false
+            "default": true,
+            "prefill": true
         },
         "zipcode": {
             "title": "Zipcode",
