@@ -108,19 +108,14 @@ Apify.main(async () => {
       if (maxItems) maxItemsCheck(maxItems, itemCount)
 
       log.info('Processing:', request.url)
-      const { label } = request.userData
+      let { label } = request.userData
 
       if (label === 'FILTER') {
         const searchUrl = request.url
         const splitUrl = searchUrl.split('?')[0]
         const qs = querystring.parse(searchUrl.split('?')[1])
-        const isFirstPage = !Number(qs.firstRecord)
         const minPrice = Number(qs.minPrice) ? Number(qs.minPrice) : 0
         const maxPrice = Number(qs.maxPrice) ? Number(qs.maxPrice) : 10000000
-
-        // console.log('isFirstPage', isFirstPage, qs.firstRecord);
-        console.log(isFirstPage, minPrice, maxPrice)
-
         await puppeteer.injectJQuery(page)
 
         const totalResults = await page.evaluate(() =>
@@ -131,17 +126,13 @@ Apify.main(async () => {
           )
         )
 
-        // log.info(
-        //   `Total number of results: ${totalResults} for page ${searchUrl}`
-        // )
-
         // split urls by price filter
         if (totalResults > 1000) {
-        //   console.log(
-        //     'Too many results for one scrape, splitting the search into two.'
-        //   )
-          const newFilters = splitFilter(minPrice, maxPrice)
-        //   console.log(newFilters)
+          log.info(
+            'Too many results for one scrape, splitting the search into two.'
+          );
+          const newFilters = splitFilter(minPrice, maxPrice);
+        
           for (const newFilter of newFilters) {
             qs.minPrice = newFilter.min;
             qs.maxPrice = newFilter.max;
@@ -150,15 +141,11 @@ Apify.main(async () => {
 
             await requestQueue.addRequest({
               url: filteredUrl,
-              userData: { label: 'HAHA' }
+              userData: { label: 'FILTER' }
             })
           }
         } else {
-            await requestQueue.addRequest({
-                url: searchUrl,
-                userData: { label: 'LIST' }
-              });
-            console.log("Hey");
+            label = 'LIST';
         }
       }
 
@@ -167,21 +154,21 @@ Apify.main(async () => {
 
         console.log(searchUrl);
 
-        // const info = await Apify.utils.enqueueLinks({
-        //   page,
-        //   requestQueue,
-        //   selector: 'div.display-flex.justify-content-between > a',
-        //   pseudoUrls: [
-        //     'https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=[.*]'
-        //   ],
-        //   transformRequestFunction: req => {
-        //     req.url = req.url.split('&')[0]
-        //     req.userData.label = 'ITEM'
-        //     req.userData.searchUrl = searchUrl
-        //     return req
-        //   }
-        // })
-        // log.info(`Enqueued ${info.length} items`)
+        const info = await Apify.utils.enqueueLinks({
+          page,
+          requestQueue,
+          selector: 'div.display-flex.justify-content-between > a',
+          pseudoUrls: [
+            'https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=[.*]'
+          ],
+          transformRequestFunction: req => {
+            req.url = req.url.split('&')[0]
+            req.userData.label = 'ITEM'
+            req.userData.searchUrl = searchUrl
+            return req
+          }
+        })
+        log.info(`Enqueued ${info.length} items`)
 
         // check if page was blocked or No Results. MAYBE didn't load for some reasons? check screenshot
         if (info.length === 0) {
