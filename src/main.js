@@ -287,8 +287,8 @@ Apify.main(async () => {
           console.log(`Starting with url ${url}.`)
           const title = document.querySelector('h1')
             ? document.querySelector('h1').textContent
-            : 'xxxxx';
-          console.log(title);
+            : 'xxxxx'
+          console.log(title)
           const price = document.querySelector('span.first-price')
             ? Number(
                 document
@@ -313,37 +313,56 @@ Apify.main(async () => {
             }
           )
 
-          const mileage = document.querySelector("[aria-label='MILEAGE']")
-            .parentElement.nextSibling
-            ? Number(
-                document
-                  .querySelector("[aria-label='MILEAGE']")
-                  .parentElement.nextSibling.textContent.replace(/\D/g, '')
-              )
-            : 'xxxx'
-          const driveType = document.querySelector("[aria-label='DRIVE TYPE']")
-            .parentElement.nextSibling
-            ? document.querySelector("[aria-label='DRIVE TYPE']").parentElement
-                .nextSibling.textContent
-            : 'xxxxx'
-          const engine = document.querySelector(
-            "[aria-label='ENGINE_DESCRIPTION']"
-          ).parentElement.nextSibling
-            ? document.querySelector("[aria-label='ENGINE_DESCRIPTION']")
-                .parentElement.nextSibling.textContent
-            : 'xxxxx'
+          const mileage =
+            document.querySelector("[aria-label='MILEAGE']") &&
+            document.querySelector("[aria-label='MILEAGE']").parentElement &&
+            document.querySelector("[aria-label='MILEAGE']").parentElement
+              .nextSibling
+              ? Number(
+                  document
+                    .querySelector("[aria-label='MILEAGE']")
+                    .parentElement.nextSibling.textContent.replace(/\D/g, '')
+                )
+              : 'xxxx'
+
+          const driveType =
+            document.querySelector("[aria-label='DRIVE TYPE']") &&
+            document.querySelector("[aria-label='DRIVE TYPE']").parentElement &&
+            document.querySelector("[aria-label='DRIVE TYPE']").parentElement
+              .nextSibling
+              ? document.querySelector("[aria-label='DRIVE TYPE']")
+                  .parentElement.nextSibling.textContent
+              : 'xxxxx'
+
+          const engine =
+            document.querySelector("[aria-label='ENGINE_DESCRIPTION']") &&
+            document.querySelector("[aria-label='ENGINE_DESCRIPTION']")
+              .parentElement &&
+            document.querySelector("[aria-label='ENGINE_DESCRIPTION']")
+              .parentElement.nextSibling
+              ? document.querySelector("[aria-label='ENGINE_DESCRIPTION']")
+                  .parentElement.nextSibling.textContent
+              : 'xxxxx';
+
           const transmission = document.querySelector(
+            "[aria-label='TRANSMISSION']"
+          ) && document.querySelector(
+            "[aria-label='TRANSMISSION']"
+          ).parentElement && document.querySelector(
             "[aria-label='TRANSMISSION']"
           ).parentElement.nextSibling
             ? document.querySelector("[aria-label='TRANSMISSION']")
                 .parentElement.nextSibling.textContent
             : 'xxxxx'
           // // const fuelType = getElementsByText('FUEL TYPE', 'div', ul)[0].nextSibling.textContent;
-          const mpg = document.querySelector("[aria-label='MPG']").parentElement
-            .nextSibling
-            ? document.querySelector("[aria-label='MPG']").parentElement
-                .nextSibling.textContent + ' (RANGE)'
-            : 'xxxxx'
+          const mpg =
+            document.querySelector("[aria-label='MPG']") &&
+            document.querySelector("[aria-label='MPG']").parentElement &&
+            document.querySelector("[aria-label='MPG']").parentElement
+              .nextSibling
+              ? document.querySelector("[aria-label='MPG']").parentElement
+                  .nextSibling.textContent + ' (RANGE)'
+              : 'xxxxx'
 
           const ul = document.querySelector('ul[data-cmp="listColumns"]')
           const getElementsByText = (str, tag, rootElement = document) => {
@@ -362,10 +381,13 @@ Apify.main(async () => {
           let vin = ''
           let stockNumber = ''
 
-          const carNumbers = Array.from(document.querySelectorAll('span'))
-          .find(el => el.textContent.includes('VIN')) ? Array.from(document.querySelectorAll('span'))
-            .find(el => el.textContent.includes('VIN'))
-            .textContent.split(',') : []
+          const carNumbers = Array.from(document.querySelectorAll('span')).find(
+            el => el.textContent.includes('VIN')
+          )
+            ? Array.from(document.querySelectorAll('span'))
+                .find(el => el.textContent.includes('VIN'))
+                .textContent.split(',')
+            : []
 
           for (const c of carNumbers) {
             if (c.includes('VIN')) {
