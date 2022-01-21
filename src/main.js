@@ -351,23 +351,21 @@ Apify.main(async () => {
               .call(rootElement.getElementsByTagName(tag))
               .filter(el => el.textContent.includes(str))
           }
-          const exterior = getElementsByText(
-            'Exterior',
-            'div',
-            ul
-          )[0].textContent.trim()
-          const interior = getElementsByText(
-            'Interior',
-            'div',
-            ul
-          )[0].textContent.trim()
+          const exterior = getElementsByText('Exterior', 'div', ul)
+            ? getElementsByText('Exterior', 'div', ul)[0].textContent.trim()
+            : 'xxxxx'
+
+          const interior = getElementsByText('Interior', 'div', ul)
+            ? getElementsByText('Interior', 'div', ul)[0].textContent.trim()
+            : 'xxxxx'
 
           let vin = ''
           let stockNumber = ''
 
           const carNumbers = Array.from(document.querySelectorAll('span'))
+          .find(el => el.textContent.includes('VIN')) ? Array.from(document.querySelectorAll('span'))
             .find(el => el.textContent.includes('VIN'))
-            .textContent.split(',')
+            .textContent.split(',') : []
 
           for (const c of carNumbers) {
             if (c.includes('VIN')) {
