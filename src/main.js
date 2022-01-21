@@ -292,7 +292,7 @@ Apify.main(async () => {
           const price = document.querySelector('span.first-price')
             ? Number(
                 document
-                  .querySelector('span.first-price')
+                  .querySelector('#overview span.first-price')
                   .textContent.replace(',', '')
               )
             : 'xxxxx'
