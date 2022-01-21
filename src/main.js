@@ -243,7 +243,7 @@ Apify.main(async () => {
         }
 
         // slow down
-        await page.waitFor(500)
+        // await page.waitFor(500)
       }
 
       if (label === 'ITEM') {
@@ -430,7 +430,7 @@ Apify.main(async () => {
       }
 
       // slow down
-      await page.waitFor(500)
+    //   await page.waitFor(500)
     },
 
     handleFailedRequestFunction: async ({ request }) => {
