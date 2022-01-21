@@ -130,12 +130,12 @@ Apify.main(async () => {
         if (totalResults > 1000) {
           log.info(
             'Too many results for one scrape, splitting the search into two.'
-          );
-          const newFilters = splitFilter(minPrice, maxPrice);
-        
+          )
+          const newFilters = splitFilter(minPrice, maxPrice)
+
           for (const newFilter of newFilters) {
-            qs.minPrice = newFilter.min;
-            qs.maxPrice = newFilter.max;
+            qs.minPrice = newFilter.min
+            qs.maxPrice = newFilter.max
             const newQs = querystring.stringify(qs)
             const filteredUrl = splitUrl + '?' + newQs
 
@@ -145,14 +145,14 @@ Apify.main(async () => {
             })
           }
         } else {
-            label = 'LIST';
+          label = 'LIST'
         }
       }
 
       if (label === 'LIST') {
         const searchUrl = request.url
 
-        console.log(searchUrl);
+        console.log(searchUrl)
 
         const info = await Apify.utils.enqueueLinks({
           page,
@@ -282,14 +282,20 @@ Apify.main(async () => {
         //     fullPage: true
         // });
 
+        await page.waitForSelector('h1')
+
         const data = await page.evaluate(currentUrl => {
           const url = currentUrl
-          const title = document.querySelector('h1').textContent
-          const price = Number(
-            document
-              .querySelector('span.first-price')
-              .textContent.replace(',', '')
-          )
+          const title = document.querySelector('h1')
+            ? document.querySelector('h1').textContent
+            : 'xxxxx'
+          const price = document.querySelector('span.first-price')
+            ? Number(
+                document
+                  .querySelector('span.first-price')
+                  .textContent.replace(',', '')
+              )
+            : 'xxxxx'
           const media = document.querySelector('div.media-pane-wrapper-md')
           const imgDivs = Array.from(
             media.querySelectorAll(
@@ -307,23 +313,37 @@ Apify.main(async () => {
             }
           )
 
-          const mileage = Number(
-            document
-              .querySelector("[aria-label='MILEAGE']")
-              .parentElement.nextSibling.textContent.replace(/\D/g, '')
-          )
+          const mileage = document.querySelector("[aria-label='MILEAGE']")
+            .parentElement.nextSibling
+            ? Number(
+                document
+                  .querySelector("[aria-label='MILEAGE']")
+                  .parentElement.nextSibling.textContent.replace(/\D/g, '')
+              )
+            : 'xxxx'
           const driveType = document.querySelector("[aria-label='DRIVE TYPE']")
-            .parentElement.nextSibling.textContent
+            .parentElement.nextSibling
+            ? document.querySelector("[aria-label='DRIVE TYPE']").parentElement
+                .nextSibling.textContent
+            : 'xxxxx'
           const engine = document.querySelector(
             "[aria-label='ENGINE_DESCRIPTION']"
-          ).parentElement.nextSibling.textContent
+          ).parentElement.nextSibling
+            ? document.querySelector("[aria-label='ENGINE_DESCRIPTION']")
+                .parentElement.nextSibling.textContent
+            : 'xxxxx'
           const transmission = document.querySelector(
             "[aria-label='TRANSMISSION']"
-          ).parentElement.nextSibling.textContent
+          ).parentElement.nextSibling
+            ? document.querySelector("[aria-label='TRANSMISSION']")
+                .parentElement.nextSibling.textContent
+            : 'xxxxx'
           // // const fuelType = getElementsByText('FUEL TYPE', 'div', ul)[0].nextSibling.textContent;
-          const mpg =
-            document.querySelector("[aria-label='MPG']").parentElement
-              .nextSibling.textContent + ' (RANGE)'
+          const mpg = document.querySelector("[aria-label='MPG']").parentElement
+            .nextSibling
+            ? document.querySelector("[aria-label='MPG']").parentElement
+                .nextSibling.textContent + ' (RANGE)'
+            : 'xxxxx'
 
           const ul = document.querySelector('ul[data-cmp="listColumns"]')
           const getElementsByText = (str, tag, rootElement = document) => {
