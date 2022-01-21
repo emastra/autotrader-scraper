@@ -2,14 +2,29 @@
     "title": "Autotrader Scraper Input Schema",
     "type": "object",
     "schemaVersion": 1,
+    "description": "(Optional if 'predefined filters' are enabled) Search is based on URL query string. You can insert multiple URLs. Filters must be in the query string, each URL query string can contain any allowed filter. Check Autotrader advanced search and/or actor documentation for more details.",
     "properties": {
+        "startUrls": {
+            "title": "Start Urls",
+            "type": "array",
+            "editor": "requestListSources",
+            "description": "(Optional if 'predefined filters' are enabled) List of search URLs to start the scraping. It must be a search url including querystring for filters. Check documentation for details and examples",
+            "prefill": ["https://www.autotrader.com/cars-for-sale/all-cars/hydrogen/los-angeles-ca-90045"]
+        },
+        "maxItems": {
+            "title": "Max items",
+            "type": "integer",
+            "minimum": 0,
+            "description": "Limit of items to be scraped. Zero value means no limit",
+            "prefill": 100
+        },
         "enablePredefinedFilters": {
             "title": "Enable this section",
             "type": "boolean",
             "description": "(Required if 'startUrls' is not provided) Enable predefined filter section",
-            "sectionCaption": "Search with predefined filters (Single search)",
-            "sectionDescription": "Set filters for search",
-            "default": true
+            "sectionCaption": "Filter cars here (instead of URL)",
+            "sectionDescription": "Set filters for search. Be aware that you can either use these or URL, not both.",
+            "default": false
         },
         "zipcode": {
             "title": "Zipcode",
@@ -106,24 +121,6 @@
             "description": "Miliage of the car",
             "default": "Any"
         },
-        "startUrls": {
-            "title": "Start Urls",
-            "type": "array",
-            "editor": "requestListSources",
-            "description": "(Optional if 'predefined filters' are enabled) List of search URLs to start the scraping. It must be a search url including querystring for filters. Check documentation for details and examples",
-            "sectionCaption": "Search with any filter (multiple search possible)",
-            "sectionDescription": "(Optional if 'predefined filters' are enabled) Search is based on URL query string. You can insert multiple URLs. Filters must be in the query string, each URL query string can contain any allowed filter. Check Autotrader advanced search and/or actor documentation for more details.",
-            "default": []
-        },
-        "maxItems": {
-            "title": "Max items",
-            "type": "integer",
-            "minimum": 0,
-            "description": "Limit of items to be scraped. Zero value means no limit",
-            "prefill": 0,
-            "sectionCaption": "Max items",
-            "default": 0
-        },
         "extendOutputFunction": {
             "title": "Extend output function",
             "type": "string",
@@ -140,5 +137,6 @@
             "editor": "proxy",
             "default": { "useApifyProxy": true }
         }
-    }
+    },
+    "required": ["proxyConfiguration"]
 }

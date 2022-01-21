@@ -81,7 +81,7 @@ Apify.main(async () => {
     requestQueue,
     maxRequestRetries: 3,
     handlePageTimeoutSecs: 240,
-    maxConcurrency: 1,
+    maxConcurrency: 50,
     launchPuppeteerOptions: {
       useApifyProxy: proxyConfiguration.useApifyProxy,
       timeout: 120 * 1000,
