@@ -81,7 +81,7 @@ Apify.main(async () => {
     requestQueue,
     maxRequestRetries: 3,
     handlePageTimeoutSecs: 240,
-    maxConcurrency: 20,
+    maxConcurrency: 1,
     launchPuppeteerOptions: {
       useApifyProxy: proxyConfiguration.useApifyProxy,
       timeout: 120 * 1000,
@@ -282,13 +282,13 @@ Apify.main(async () => {
         //     fullPage: true
         // });
 
-        await page.waitForSelector('h1')
-
         const data = await page.evaluate(currentUrl => {
           const url = currentUrl
+          console.log(`Starting with url ${url}.`)
           const title = document.querySelector('h1')
             ? document.querySelector('h1').textContent
-            : 'xxxxx'
+            : 'xxxxx';
+          console.log(title);
           const price = document.querySelector('span.first-price')
             ? Number(
                 document
@@ -351,11 +351,11 @@ Apify.main(async () => {
               .call(rootElement.getElementsByTagName(tag))
               .filter(el => el.textContent.includes(str))
           }
-          const exterior = getElementsByText('Exterior', 'div', ul)
+          const exterior = getElementsByText('Exterior', 'div', ul).length
             ? getElementsByText('Exterior', 'div', ul)[0].textContent.trim()
             : 'xxxxx'
 
-          const interior = getElementsByText('Interior', 'div', ul)
+          const interior = getElementsByText('Interior', 'div', ul).length
             ? getElementsByText('Interior', 'div', ul)[0].textContent.trim()
             : 'xxxxx'
 
