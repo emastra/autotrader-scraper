@@ -136,7 +136,7 @@ function maxItemsCheck (maxItems, itemCount) {
   if (itemCount >= maxItems) {
     log.info('Actor reached the max items limit. Crawler is going to halt...')
     log.info('Crawler Finished.')
-    process.exit()
+    crawler.autoscaledPool.abort()
   }
 }
 
@@ -175,7 +175,7 @@ async function applyFunction ($, evaledFunc, items) {
 
   if (!isObject(userResult)) {
     log.exception(new Error('extendOutputFunction must return an object!'))
-    process.exit(1)
+    crawler.autoscaledPool.abort()
   }
 
   items.forEach((item, i) => {
