@@ -287,7 +287,7 @@ Apify.main(async () => {
           console.log(`Starting with url ${url}.`)
           const title = document.querySelector('h1')
             ? document.querySelector('h1').textContent
-            : 'xxxxx'
+            : 'not available'
           console.log(title)
           const price = document.querySelector('span.first-price')
             ? Number(
@@ -295,7 +295,7 @@ Apify.main(async () => {
                   .querySelector('#overview span.first-price')
                   .textContent.replace(',', '')
               )
-            : 'xxxxx'
+            : 'not available'
           const media = document.querySelector('div.media-pane-wrapper-md')
           const imgDivs = Array.from(
             media.querySelectorAll(
@@ -332,7 +332,7 @@ Apify.main(async () => {
               .nextSibling
               ? document.querySelector("[aria-label='DRIVE TYPE']")
                   .parentElement.nextSibling.textContent
-              : 'xxxxx'
+              : 'not available'
 
           const engine =
             document.querySelector("[aria-label='ENGINE_DESCRIPTION']") &&
@@ -342,18 +342,17 @@ Apify.main(async () => {
               .parentElement.nextSibling
               ? document.querySelector("[aria-label='ENGINE_DESCRIPTION']")
                   .parentElement.nextSibling.textContent
-              : 'xxxxx';
+              : 'not available'
 
-          const transmission = document.querySelector(
-            "[aria-label='TRANSMISSION']"
-          ) && document.querySelector(
-            "[aria-label='TRANSMISSION']"
-          ).parentElement && document.querySelector(
-            "[aria-label='TRANSMISSION']"
-          ).parentElement.nextSibling
-            ? document.querySelector("[aria-label='TRANSMISSION']")
-                .parentElement.nextSibling.textContent
-            : 'xxxxx'
+          const transmission =
+            document.querySelector("[aria-label='TRANSMISSION']") &&
+            document.querySelector("[aria-label='TRANSMISSION']")
+              .parentElement &&
+            document.querySelector("[aria-label='TRANSMISSION']").parentElement
+              .nextSibling
+              ? document.querySelector("[aria-label='TRANSMISSION']")
+                  .parentElement.nextSibling.textContent
+              : 'not available'
           // // const fuelType = getElementsByText('FUEL TYPE', 'div', ul)[0].nextSibling.textContent;
           const mpg =
             document.querySelector("[aria-label='MPG']") &&
@@ -362,7 +361,7 @@ Apify.main(async () => {
               .nextSibling
               ? document.querySelector("[aria-label='MPG']").parentElement
                   .nextSibling.textContent + ' (RANGE)'
-              : 'xxxxx'
+              : 'not available'
 
           const ul = document.querySelector('ul[data-cmp="listColumns"]')
           const getElementsByText = (str, tag, rootElement = document) => {
@@ -372,11 +371,11 @@ Apify.main(async () => {
           }
           const exterior = getElementsByText('Exterior', 'div', ul).length
             ? getElementsByText('Exterior', 'div', ul)[0].textContent.trim()
-            : 'xxxxx'
+            : 'not available'
 
           const interior = getElementsByText('Interior', 'div', ul).length
             ? getElementsByText('Interior', 'div', ul)[0].textContent.trim()
-            : 'xxxxx'
+            : 'not available'
 
           let vin = ''
           let stockNumber = ''
@@ -430,7 +429,7 @@ Apify.main(async () => {
       }
 
       // slow down
-    //   await page.waitFor(500)
+      //   await page.waitFor(500)
     },
 
     handleFailedRequestFunction: async ({ request }) => {
