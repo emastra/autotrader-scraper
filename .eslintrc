@@ -1,0 +1,17 @@
+{
+    "extends": "@apify",
+    "globals": {
+        "describe": "readonly",
+        "test": "readonly",
+        "expect": "readonly",
+        "afterAll": "readonly",
+        "jasmine": "readonly"
+    },
+    "parserOptions": {
+        "ecmaVersion": 2021
+    },
+    "rules": {
+        "import/extensions": 0,
+        "camelcase": 0
+    }
+}

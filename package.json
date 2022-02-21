@@ -1,15 +1,22 @@
 {
-	"name": "actor-autotrader-scraper",
-	"version": "0.0.1",
-	"description": "This is a boilerplate of an Apify actor.",
-	"dependencies": {
-		"apify": "^0.19.0"
-	},
-	"devDependencies": {},
-	"scripts": {
-		"start": "node src/main.js",
-		"test": "echo \"Error: oops, the actor has no tests yet, sad!\" && exit 1"
-	},
-	"author": "It's not you it's me",
-	"license": "ISC"
+    "name": "actor-autotrader-scraper",
+    "version": "0.0.1",
+    "devDependencies": {
+        "@apify/eslint-config": "^0.2.2",
+        "eslint": "^8.7.0"
+    },
+    "description": "This is a boilerplate of an Apify actor.",
+    "dependencies": {
+        "apify": "^2.2.1",
+        "underscore": "^1.13.2",
+        "puppeteer": "*"
+    },
+    "scripts": {
+        "start": "node src/main.js",
+        "lint": "eslint ./src --ext .js,.jsx",
+        "lint:fix": "eslint ./src --ext .js,.jsx --fix",
+        "test": "echo \"Error: oops, the actor has no tests yet, sad!\" && exit 1"
+    },
+    "author": "It's not you it's me",
+    "license": "ISC"
 }

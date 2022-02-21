@@ -4,12 +4,11 @@ const _ = require('underscore');
 
 const { log } = Apify.utils;
 
-const BASE_SEARCH_URL = 'https://www.autotrader.com/cars-for-sale/searchresults.xhtml';
-
+const BASE_SEARCH_URL = 'https://www.autotrader.com/cars-for-sale/all-cars/';
 
 function validateInput(input) {
     if (!input) throw new Error('INPUT is missing.');
-    if (!input.zipcode && !input.startUrls) throw new Error('INPUT must have "zipcode" or "startUrls".');
+    if (!input.zipcode && !input.startUrls) { throw new Error('INPUT must have "zipcode" or "startUrls".'); }
 
     // validate function
     const validate = (inputKey, type = 'string') => {
@@ -45,9 +44,21 @@ function validateInput(input) {
 }
 
 function createUrlsFromSearches(input) {
-    const searchInput = _.pick(input,
-        'enablePredefinedFilters', 'zipcode', 'searchWithin', 'condition', 'minimumPrice', 'maximumPrice',
-        'style', 'driveType', 'fromYear', 'toYear', 'make', 'model', 'mileage'
+    const searchInput = _.pick(
+        input,
+        'enablePredefinedFilters',
+        'zipcode',
+        'searchWithin',
+        'condition',
+        'minimumPrice',
+        'maximumPrice',
+        'style',
+        'driveType',
+        'fromYear',
+        'toYear',
+        'make',
+        'model',
+        'mileage',
     );
 
     // if not predefined filters, return empty array
@@ -66,10 +77,10 @@ function createUrlsFromSearches(input) {
         toYear: 'endYear',
         make: 'makeCodeList',
         model: 'modelCodeList',
-        mileage: 'maxMileage'
-    }
+        mileage: 'maxMileage',
+    };
 
-    let url = BASE_SEARCH_URL + '?';
+    const url = `${BASE_SEARCH_URL}?`;
     const qs = {};
 
     for (const key of Object.keys(mapping)) {
@@ -93,15 +104,18 @@ function createUrlsFromSearches(input) {
 function updateStartUrls(startUrls) {
     const updatedStartUrls = [];
 
-    for (const { url } of startUrls) {
-        const qs = querystring.parse(url.split('?')[1]);
-        qs.numRecords = 100;
-        if (!qs.firstRecord) qs.firstRecord = 0;
+    if (Array.isArray(startUrls)) {
+        for (const { url } of startUrls) {
+            const splitUrl = url.split('?');
+            const qs = querystring.parse(splitUrl[1]);
+            qs.numRecords = 100;
+            if (!qs.firstRecord) qs.firstRecord = 0;
 
-        const queryStr = querystring.stringify(qs);
-        const updatedUrl = BASE_SEARCH_URL + '?' + queryStr;
+            const queryStr = querystring.stringify(qs);
+            const updatedUrl = `${splitUrl[0]}?${queryStr}`;
 
-        updatedStartUrls.push({ url: updatedUrl });
+            updatedStartUrls.push({ url: updatedUrl });
+        }
     }
 
     return updatedStartUrls;
@@ -111,7 +125,7 @@ function createSources(urlList) {
     const sources = [];
 
     for (const { url } of urlList) {
-        sources.push({ url, userData: { label: 'LIST' } });
+        sources.push({ url, userData: { label: 'FILTER' } });
     }
 
     return sources;
@@ -121,7 +135,7 @@ function maxItemsCheck(maxItems, itemCount) {
     if (itemCount >= maxItems) {
         log.info('Actor reached the max items limit. Crawler is going to halt...');
         log.info('Crawler Finished.');
-        process.exit();
+        crawler.autoscaledPool.abort();
     }
 }
 
@@ -131,29 +145,35 @@ function checkAndEval(extendOutputFunction) {
     try {
         evaledFunc = eval(extendOutputFunction);
     } catch (e) {
-        throw new Error(`extendOutputFunction is not a valid JavaScript! Error: ${e}`);
+        throw new Error(
+            `extendOutputFunction is not a valid JavaScript! Error: ${e}`,
+        );
     }
 
     if (typeof evaledFunc !== 'function') {
-        throw new Error('extendOutputFunction is not a function! Please fix it or use just default output!');
+        throw new Error(
+            'extendOutputFunction is not a function! Please fix it or use just default output!',
+        );
     }
 
     return evaledFunc;
 }
 
 async function applyFunction($, evaledFunc, items) {
-    const isObject = val => typeof val === 'object' && val !== null && !Array.isArray(val);
+    const isObject = (val) => typeof val === 'object' && val !== null && !Array.isArray(val);
 
     let userResult = {};
     try {
         userResult = await evaledFunc($);
     } catch (err) {
-        log.error(`extendOutputFunction crashed! Pushing default output. Please fix your function if you want to update the output. Error: ${err}`);
+        log.error(
+            `extendOutputFunction crashed! Pushing default output. Please fix your function if you want to update the output. Error: ${err}`,
+        );
     }
 
     if (!isObject(userResult)) {
         log.exception(new Error('extendOutputFunction must return an object!'));
-        process.exit(1);
+        crawler.autoscaledPool.abort();
     }
 
     items.forEach((item, i) => {
@@ -161,6 +181,30 @@ async function applyFunction($, evaledFunc, items) {
     });
 
     return items;
+}
+
+function splitFilter(min, max) {
+    // Don't forget that max can be null and we have to handle that situation
+    if (max && min > max) {
+        throw new Error(`WRONG FILTER - min(${min}) is greater than max(${max})`);
+    }
+
+    // We crate a middle value for the split. If max in null, we will use double min as the middle value
+    const middle = max
+        ? min + Math.floor((max - min) / 2)
+        : min * 2;
+
+    // We have to do the Math.max and Math.min to prevent having min > max
+    const filterMin = {
+        min,
+        max: Math.max(middle, min),
+    };
+    const filterMax = {
+        min: max ? Math.min(middle + 1, max) : middle + 1,
+        max,
+    };
+    // We return 2 new filters
+    return [filterMin, filterMax];
 }
 
 module.exports = {
@@ -171,4 +215,5 @@ module.exports = {
     maxItemsCheck,
     checkAndEval,
     applyFunction,
+    splitFilter,
 };
