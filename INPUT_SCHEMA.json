@@ -29,16 +29,12 @@
         "zipcode": {
             "title": "Zipcode",
             "type": "integer",
-            "description": "Location zipcode for search",
-            "prefill": 0,
-            "default": 0
+            "description": "Location zipcode for search"
         },
         "searchWithin": {
             "title": "Search within",
             "type": "integer",
-            "description": "Radius of the search with zipcode as center (in Miles)",
-            "prefill": 0,
-            "default": 0
+            "description": "Radius of the search with zipcode as center (in Miles)"
         },
         "condition": {
             "title": "Condition",
@@ -47,7 +43,8 @@
             "enum": [ "ANY", "NEW", "USED", "CERTIFIED" ],
             "enumTitles": [ "Any", "New", "Used", "Certified" ],
             "description": "Condition of the car to search",
-            "default": "Any"
+            "default": "Any",
+            "prefill": "Any"
         },
         "minimumPrice": {
             "title": "Minimum Price",
@@ -56,7 +53,8 @@
             "enum": [ "ANY", "1000", "2000", "3000", "4000", "5000", "6000", "7000", "8000", "9000", "10000", "11000", "12000", "13000", "14000", "15000", "16000", "17000", "18000", "19000", "20000", "22000", "24000", "26000",  "28000", "30000", "35000", "40000", "45000", "50000", "55000", "60000", "65000", "70000", "75000", "80000", "85000", "90000", "95000", "100000" ],
             "enumTitles": [ "Any", "$1,000","$2,000","$3,000","$4,000","$5,000","$6,000","$7,000","$8,000","$9,000","$10,000","$11,000","$12,000","$13,000","$14,000","$15,000","$16,000","$17,000","$18,000","$19,000","$20,000","$22,000","$24,000","$26,000","$28,000","$30,000","$35,000","$40,000","$45,000","$50,000","$55,000","$60,000","$65,000","$70,000","$75,000","$80,000","$85,000","$90,000","$95,000","$100,000" ],
             "description": "Minimum price filter",
-            "default": "Any"
+            "default": "Any",
+            "prefill": "Any"
         },
         "maximumPrice": {
             "title": "Maximum Price",
@@ -65,7 +63,8 @@
             "enum": [ "ANY", "1000", "2000", "3000", "4000", "5000", "6000", "7000", "8000", "9000", "10000", "11000", "12000", "13000", "14000", "15000", "16000", "17000", "18000", "19000", "20000", "22000", "24000", "26000",  "28000", "30000", "35000", "40000", "45000", "50000", "55000", "60000", "65000", "70000", "75000", "80000", "85000", "90000", "95000", "100000" ],
             "enumTitles": [ "Any", "$1,000","$2,000","$3,000","$4,000","$5,000","$6,000","$7,000","$8,000","$9,000","$10,000","$11,000","$12,000","$13,000","$14,000","$15,000","$16,000","$17,000","$18,000","$19,000","$20,000","$22,000","$24,000","$26,000","$28,000","$30,000","$35,000","$40,000","$45,000","$50,000","$55,000","$60,000","$65,000","$70,000","$75,000","$80,000","$85,000","$90,000","$95,000","$100,000" ],
             "description": "Maximum price filter",
-            "default": "Any"
+            "default": "Any",
+            "prefill": "Any"
         },
         "style": {
             "title": "Style",
@@ -74,7 +73,8 @@
             "enum": [ "ANY", "CONVERT", "SEDAN", "VANMV", "COUPE", "SUVCROSS", "WAGON", "HATCH", "TRUCKS" ],
             "enumTitles": [ "Any", "Convertible", "Sedan", "Van/Minivan", "Coupe", "Suv/Crossover", "Wagon", "Hatchback", "Truck" ],
             "description": "Style of the car to search",
-            "default": "Any"
+            "default": "Any",
+            "prefill": "Any"
         },
         "driveType": {
             "title": "Drive type",
@@ -83,7 +83,8 @@
             "enum": [ "ANY", "AWD4WD", "FWD", "RWD" ],
             "enumTitles": [ "Any", "AWD/4WD", "Front Wheel Drive", "Rear Wheel Drive" ],
             "description": "Type of car drive",
-            "default": "Any"
+            "default": "Any",
+            "prefill": "Any"
         },
         "fromYear": {
             "title": "From Year",
@@ -91,7 +92,8 @@
             "editor": "select",
             "enum": [ "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021" ],
             "description": "Minimum year of the car",
-            "default": "1981"
+            "default": "1981",
+            "prefill": "1981"
         },
         "toYear": {
             "title": "To Year",
@@ -99,7 +101,8 @@
             "editor": "select",
             "enum": [ "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021" ],
             "description": "Maximum year of the car",
-            "default": "2021"
+            "default": "2021",
+            "prefill": "2021"
         },
         "make": {
             "title": "Make",
@@ -110,7 +113,8 @@
             "enumTitles": ["Any","Acura","Alfa Romeo","AMC","Aston Martin","Audi","Bentley","BMW","Bugatti","Buick","Cadillac","Chevrolet","Chrysler","Daewoo","Datsun","DeLorean","Dodge","Eagle","Ferrari","FIAT","Fisker","Ford","Freightliner","Genesis","Geo","GMC","Honda","HUMMER","Hyundai","INFINITI","Isuzu","Jaguar",
                 "Jeep","Karma","Kia","Lamborghini","Land Rover","Lexus","Lincoln","Lotus","Maserati","Maybach","MAZDA","McLaren","Mercedes-Benz","Mercury","MINI","Mitsubishi","Nissan","Oldsmobile","Plymouth","Pontiac","Porsche","RAM","Rolls-Royce","Saab","Saturn","Scion","smart","SRT","Subaru","Suzuki","Tesla","Toyota","Volkswagen","Volvo","Yugo"],
             "description": "Car make",
-            "default": "Any"
+            "default": "Any",
+            "prefill": "Any"
         },
         "mileage": {
             "title": "Mileage",
@@ -119,7 +123,8 @@
             "enum": [ "ANY", "15000", "30000", "45000", "60000", "75000", "100000", "150000", "200000", "200001" ],
             "enumTitles": [ "Any", "Under 15,000", "Under 30,000", "Under 45,000", "Under 60,000", "Under 75,000", "Under 100,000", "Under 150,000", "Under 200,000", "Over 200,000"],
             "description": "Miliage of the car",
-            "default": "Any"
+            "default": "Any",
+            "prefill": "Any"
         },
         "extendOutputFunction": {
             "title": "Extend output function",
