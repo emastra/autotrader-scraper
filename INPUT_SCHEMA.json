@@ -9,7 +9,7 @@
             "type": "array",
             "editor": "requestListSources",
             "description": "Search URL(s) to start the scraping. It must be a search url including querystring for filters. Check documentation for details and examples",
-            "prefill": ["https://www.autotrader.com/cars-for-sale/all-cars/hydrogen/los-angeles-ca-90045", https://www.autotrader.com/cars-for-sale/all-cars/hydrogen/los-angeles-ca-90046]
+            "prefill": [{"url": "https://www.autotrader.com/cars-for-sale/all-cars/hydrogen/los-angeles-ca-90045"}]
         },
         "maxItems": {
             "title": "Max items",
