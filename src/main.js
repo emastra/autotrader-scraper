@@ -288,7 +288,13 @@ Apify.main(async () => {
                         : 'not available';
                     console.log(title);
 
-                    const price = document.querySelector('span.first-price') ? (`$${document.querySelector('#overview span.first-price')?.textContent}`) : 'not_available';
+                    const price = document.querySelector('span.first-price')
+                        ? Number(
+                            document
+                                .querySelector('#overview span.first-price')
+                                .textContent.replace(',', ''),
+                        )
+                        : 'not available';
 
                     const media = document.querySelector('div[data-cmp="mediaViewer"]');
                     const imgElements = Array.from(
