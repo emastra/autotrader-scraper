@@ -87,7 +87,7 @@ Apify.main(async () => {
             launchOptions: {
                 headless: Apify.isAtHome(),
                 devtools: !Apify.isAtHome(),
-            }
+            },
         },
         browserPoolOptions: {
             useFingerprints: true,
@@ -239,7 +239,7 @@ Apify.main(async () => {
                             userData: { label: 'LIST' },
                         });
 
-                        log.info('Next page enqueued:', nextUrl);
+                        log.info(`Next page with URL: ${nextUrl} was enqueued`);
                     }
                 }
 
@@ -249,8 +249,9 @@ Apify.main(async () => {
 
             if (label === 'ITEM') {
                 // check if page was blocked or didn't load for some reasons
+                log.info('Will try to process ITEM page now');
                 try {
-                    await page.waitForSelector('div.media-pane-wrapper-md', {
+                    await page.waitForSelector('div[data-cmp="mediaViewer"]', {
                         timeout: 90 * 1000,
                     });
                 } catch (err) {
@@ -279,7 +280,6 @@ Apify.main(async () => {
                 //     path: 'screenshot.png',
                 //     fullPage: true
                 // });
-
                 const data = await page.evaluate((currentUrl) => {
                     const url = currentUrl;
                     console.log(`Starting with url ${url}.`);
@@ -287,6 +287,7 @@ Apify.main(async () => {
                         ? document.querySelector('h1').textContent
                         : 'not available';
                     console.log(title);
+
                     const price = document.querySelector('span.first-price')
                         ? Number(
                             document
@@ -294,23 +295,14 @@ Apify.main(async () => {
                                 .textContent.replace(',', ''),
                         )
                         : 'not available';
-                    const media = document.querySelector('div.media-pane-wrapper-md');
-                    const imgDivs = Array.from(
+
+                    const media = document.querySelector('div[data-cmp="mediaViewer"]');
+                    const imgElements = Array.from(
                         media.querySelectorAll(
-                            'div.text-center.carousel-cell.carousel-full-width',
+                            'img',
                         ),
                     ).slice(0, 4);
-                    const [imageURL1, imageURL2, imageURL3, imageURL4] = imgDivs.map(
-                        (div) => {
-                            if (div.querySelector('img')) {
-                                return (
-                                    div.querySelector('img').src
-                  || div.querySelector('img').dataset.flickityLazyload
-                                );
-                            }
-                            return null;
-                        },
-                    );
+                    const [imageURL1, imageURL2, imageURL3, imageURL4] = imgElements.map((imgElement) => imgElement.getAttribute('src'));
 
                     const mileage = document.querySelector("[aria-label='MILEAGE']")
               && document.querySelector("[aria-label='MILEAGE']").parentElement
@@ -393,7 +385,6 @@ Apify.main(async () => {
                                 .replace(')', '');
                         }
                     }
-
                     return {
                         url,
                         title,
